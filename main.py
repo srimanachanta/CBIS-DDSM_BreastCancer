@@ -18,7 +18,7 @@ def main():
     labels = []
 
     for cat in categories:
-        print("Loading images from", cat.upper())
+        print(f"Loading images from the '{cat.upper()}' category")
         basePath = os.path.join(r"Dataset", cat)
         for fileName in tqdm(os.listdir(basePath)):
             img = cv2.imread(os.path.join(basePath, fileName), 0)
@@ -69,7 +69,7 @@ def main():
         trainImages,
         trainLabels,
         validation_data=(testImages, testLabels),
-        epochs=100,
+        epochs=50,
         batch_size=batchSize
     )
 
