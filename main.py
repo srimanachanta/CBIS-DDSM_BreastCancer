@@ -27,17 +27,18 @@ def main():
             labels.append(cat)
 
     images = np.array(images) / 255.0
-    labels = tf.keras.utils.to_categorical([categories.index(i) for i in np.array(labels)])
+    labels = tf.keras.utils.to_categorical([categories.index(i) for i in np.array(labels)], num_classes=2)
 
     trainImages, testImages, trainLabels, testLabels = train_test_split(images, labels, test_size=0.2)
 
     data_gen = ImageDataGenerator(
-        rotation_range=15,
+        rotation_range=90,
         shear_range=0.1,
         zoom_range=0.1,
         width_shift_range=0.15,
         height_shift_range=0.15,
-        horizontal_flip=True
+        horizontal_flip=True,
+        vertical_flip=True
     )
 
     trainImages = trainImages.reshape((2452, 256, 256, 1))
