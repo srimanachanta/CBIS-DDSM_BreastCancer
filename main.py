@@ -37,8 +37,7 @@ def main():
         zoom_range=0.1,
         width_shift_range=0.15,
         height_shift_range=0.15,
-        horizontal_flip=True,
-        vertical_flip=True
+        horizontal_flip=True
     )
 
     trainImages = trainImages.reshape((2452, 256, 256, 1))
@@ -46,14 +45,21 @@ def main():
     data_gen.fit(trainImages)
 
     model = models.Sequential(layers=[
-        layers.Conv2D(filters=32, kernel_size=4, strides=3, padding='same', activation='relu', input_shape=(256, 256, 1)),
+        layers.Conv2D(filters=32, kernel_size=2, strides=3, padding='same', activation='relu', input_shape=(256, 256, 1)),
         layers.BatchNormalization(),
-        layers.Conv2D(filters=64, kernel_size=4, strides=3, padding='same', activation='relu'),
+        layers.Dropout(0.2),
+        layers.Conv2D(filters=64, kernel_size=2, strides=3, padding='same', activation='relu'),
         layers.BatchNormalization(),
-        layers.Conv2D(filters=128, kernel_size=4, strides=3, padding='same', activation='relu'),
+        layers.Dropout(0.2),
+        layers.Conv2D(filters=128, kernel_size=2, strides=3, padding='same', activation='relu'),
         layers.BatchNormalization(),
-        layers.Conv2D(filters=256, kernel_size=4, strides=3, padding='same', activation='relu'),
+        layers.Dropout(0.2),
+        layers.Conv2D(filters=256, kernel_size=2, strides=3, padding='same', activation='relu'),
         layers.BatchNormalization(),
+        layers.Dropout(0.2),
+        layers.Conv2D(filters=512, kernel_size=2, strides=3, padding='same', activation='relu'),
+        layers.BatchNormalization(),
+        layers.Dropout(0.2),
 
         layers.Flatten(),
 
